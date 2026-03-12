@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Event Page</title>
+
+    <style>
+        h2{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Orbitron',sans-serif, Arial;
+        }
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Rajdhani',sans-serif, Arial;
+        }
+
+
+        body{
+            background-color:#121212;
+            color:white;
+        }
+            /* Navigation Bar */
+        nav{
+            background-color:#1f1f1f;
+            padding:15px;
+            display:flex;           
+            flex-direction:column;
+            align-items:center;
+        }
+
+
+        .logo{
+            text-align:center;
+            color:#00ffcc;
+            padding-bottom:10px;
+            margin-bottom:5px;
+        }
+
+
+        nav h2{
+            color:#00ffcc;
+        }
+
+        .longLine {
+            width: 80%;
+            height: 2px;
+            background-color: white;
+            border: none;
+            margin: 3px auto;
+        }
+
+        nav ul{
+            list-style:none;
+            display:flex;
+        }
+
+        .menu{
+            list-style:none;
+        }
+
+        nav ul li{
+            margin-left:40px;
+        }
+
+        nav ul li a{
+            color:white;
+            font-weight:bold;
+            text-decoration:none;
+        }
+
+        nav ul li a:hover{
+            color:#00ffcc;
+        }
+
+        /* Table */
+        .table-container{
+            width:80%;
+            margin:40px auto;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            text-align:center;
+        }
+
+        th, td{
+            padding:12px;
+            border:1px solid #444;
+        }
+
+        th{
+            background-color:#00ffcc;
+            color:black;
+        }
+
+        tr:hover{
+            background-color:#3a3a3a;
+        }
+
+        /* Sign-up Form */
+        .form-container{
+            margin:40px auto;
+            padding:20px;
+            background-color:#1f1f1f;
+            border-radius:10px;
+        }
+
+        .form-container h2{
+            text-align:center;
+            margin-bottom:20px;
+        }
+
+        input, select{
+            width:100%;
+            padding:10px;
+            margin:10px 0;
+            border:none;
+            border-radius:5px;
+           
+        }
+        input:required, select:required {
+            outline: 2px solid #afc9cc;
+        }
+        input:valid, select:valid {
+            border: 3px solid rgb(0, 255, 0);
+        }
+
+        input:invalid, select:invalid {
+            border: 3px solid #ff0000;
+        }
+
+        button{
+            width:100%;
+            padding:10px;
+            background-color:#00ffcc;
+            border:none;
+            font-weight:bold;
+            cursor:pointer;
+            border-radius:10px;
+        }
+
+        button:hover{
+            background-color:#00ccaa;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            background-color: #1f1f1f;
+            margin-top: 50px;
+            color: #666;
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<nav>
+    <div class="logo"> 
+        <h2>GameHub</h2>
+    </div>
+
+    <hr class="longLine">
+
+    <ul class="menu d-flex justify-content-center gap-4 mt-3">
+        <li><a href="homePage.html">Home</a></li>
+        <li><a href="profile.html">Profile</a></li>
+        <li><a href="eventPage.html">Events</a></li>
+        <li><a href="review.html">Reviews</a></li>
+        
+    </ul>
+</nav>
+
+<!-- Event Table -->
+<div class="table-container container">
+    <h2>Upcoming Gaming Tournaments</h2>
+    <br>
+    <table>
+        <tr>
+            <th>Event Name</th>
+            <th>Date</th>
+            <th>Game</th>
+            <th>Location</th>
+            <th>Price Pool</th>
+        </tr>
+
+        <tr>
+            <td>FPS Championship</td>
+            <td>15 March 2026</td>
+            <td>Valorant</td>
+            <td>Online</td>
+            <td>RM8000</td>
+        </tr>
+
+        <tr>
+            <td>MOBA Showdown</td>
+            <td>25 March 2026</td>
+            <td>Dota 2</td>
+            <td>Gaming Hub</td>
+            <td>RM5000</td>
+        </tr>
+
+        <tr>
+            <td>Battle Royale Cup</td>
+            <td>5 April 2026</td>
+            <td>Fortnite</td>
+            <td>Online</td>
+            <td>RM10,000</td>
+        </tr>
+
+        <tr>
+            <td>Chill & Conquer</td>
+            <td>20 April 2026</td>
+            <td>Variety Games</td>
+            <td>Gaming Hub</td>
+            <td>-</td>
+        </tr>
+
+    </table>
+</div>
+
+<!-- Signup Form -->
+<div class="form-container container col-md-6 col-lg-4">
+    <h2>Sign Up Now!</h2>
+
+    <form onsubmit="return validateForm()"  >
+        <label>Event:</label>
+        <select required>
+            <option value="">Select Event</option>
+            <option>FPS Championship</option>
+            <option>MOBA Showdown</option>
+            <option>Battle Royale Cup</option>
+            <option>Chill & Conquer</option>
+        </select>
+
+        <label>Username:</label>
+        <input type="text" class="form-input" placeholder="Enter Username" required minlength="5">
+
+
+        <label>Age:</label>
+        <input type="number" min="1" max="100" placeholder="Enter Age" required>
+
+        <label>Email:</label>
+        <input type="email" placeholder="Enter Email" required>
+
+        <label>Gender:</label>
+        <select required>
+            <option value="">Select Gender</option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>Other</option>
+        </select>
+        <br> <br> 
+        <button type="submit">Sign Up</button>
+    </form>
+</div>
+
+<footer>
+     &copy; 2026 GameHub. All Rights Reserved.
+</footer>
+
+<script>
+function validateForm(){
+
+    let age = document.querySelector("input[type='number']").value;
+
+    if(age < 13){
+        alert("You must be at least 13 years old to join!");
+        return false;
+    }
+
+    alert("Registration successful!");
+    return true;
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Gamehub - Reviews</title>
+
+    <style>
+        h2{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Orbitron',sans-serif, Arial;
+        }
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Rajdhani',sans-serif, Arial;
+        }
+
+
+        body{
+            background-color:#121212;
+            color:white;
+        }
+
+        .wrapper{   
+            max-width: 90%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+            
+        /* Navigation Bar*/
+        nav{
+            background-color:#1f1f1f;
+            padding: 15px;
+            display:flex;           
+            flex-direction:column;
+            align-items:center;
+        }
+
+        .logo{
+            text-align:center;
+            color:#00ffcc;
+            padding-bottom:10px;
+            margin-bottom:5px;
+        }
+
+        nav h2{
+            color:#00ffcc;
+        }
+
+        /*Horizontal Line*/
+        .longLine {
+            width: 80%;
+            height: 2px;
+            background-color: white;
+            border: none;
+            margin: 3px auto;
+        }
+
+        nav ul{
+            list-style:none;
+            display:flex;
+        }
+
+        .menu{
+            list-style:none;
+        }
+
+        nav ul li{
+            margin-left:40px;
+        }
+
+        nav ul li a{
+            color:white;
+            font-weight:bold;
+            text-decoration:none;
+        }
+
+        nav ul li a:hover{
+            color:#00ffcc;
+        }
+
+        /*Display Users Ratings*/
+        #container{
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-template-areas: "header header"
+                             "main overall-rating"
+                             "stars overall-rating";
+        gap: 15px;
+        align-items: start;
+        background-color: #1f1f1f;
+        padding: 20px;
+        border-radius: 10px;
+        margin:20px auto;
+        }
+
+        /*Responsive Grid*/
+        @media (max-width:768px){
+            #container{
+                grid-template-columns:1fr;
+                grid-template-areas:
+                "header"
+                "main"
+                "stars"
+                "overall-rating";
+                }
+
+            nav ul{
+                flex-direction:column;
+                gap:10px;
+                }
+
+        }
+
+        /*Continue Display Users Ratings*/
+        header{
+            grid-area: header;
+        }
+
+        main{
+            grid-area: main;
+            font-size: 80px;
+            font-weight: bold;
+            margin-top: -5px;
+        }
+
+        .stars{
+            grid-area: stars;
+            font-size: 17px;
+            color: gray;
+            margin-top: -25px;
+            }
+
+        .checked{
+            color: gold;
+        }
+
+        .overall-rating{
+            grid-area: overall-rating;
+        }
+
+        .rating-row{
+            display: flex;
+            align-items: center;
+            margin: 5px;
+        }
+
+        .tag{
+            width: 20px;
+            margin-right: 6px;
+        }
+
+        .bar-container{
+            flex: 1;
+            background-color: gray;
+            height: 15px;
+            max-width: 250px;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .bar{
+            height: 100%;
+            background-color: #00ffcc;
+            border-radius: 10px;
+        }
+
+        /*Interactive Rating*/
+        h2{
+            margin-bottom: 5px;
+            color: #cea878;
+        }
+
+        p{
+            margin-top: 0;
+            font-style: italic;
+        }
+
+        form{
+            background: #1f1f1f;
+            padding: 20px;
+            border-radius: 10px;
+            margin:20px auto;
+        }
+
+        .rating{
+            display: flex;
+            justify-content: flex-end;
+            flex-direction: row-reverse;
+            gap: 10px;
+            margin-top: -5px;
+        }
+
+        .rating input{
+            display: none;
+        }
+
+        .rating label{
+            font-size: 30px;
+            color: gray;
+            cursor: pointer;
+        }
+
+        .rating input:checked ~label{ /*star color after clicked*/
+            color: gold;
+        }
+
+        .rating label:hover, /*star color when hover*/
+        .rating label:hover ~label{ /*star color*/
+            color: gold;
+        }
+        
+        /*Interactive Review*/
+        textarea{
+            height: 80px;
+            max-width: 500px;
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: none;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        /*Button*/
+        .post, .clear{
+            padding:10px;
+            border:none;
+            font-weight:bold;
+            cursor:pointer;
+            border-radius:10px;
+            width: 55px;
+        }
+
+        .post{
+            background-color:#00ffcc;
+        }
+
+        .post:hover{
+            background-color:#00ccaa;
+        }
+
+        .clear{
+            background-color: lightgray;
+        }
+
+        .clear:hover{
+            background-color: gray;
+        }
+
+        /*Display Comment*/
+        .comment{
+            padding-left: 15px;
+        }
+
+        .comment-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: -8px;
+            margin-bottom: 8px;
+        }
+
+        .comment-body {
+            margin-bottom: 20px;
+        }
+            
+        .pfp {
+            width: 40px;
+            height: 40px;
+            margin-left: -5px;
+            border-radius: 50%;
+        }
+
+        .username {
+            color: #00ffcc;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        .time {
+            color: gray;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .comment-text {
+            font-size: 18px;
+        }
+
+        /*Games Guide*/
+        .section{
+            padding:40px 0;
+        }
+
+        .walkthrough-container{
+            display:grid;
+            grid-template-columns:repeat(auto-fill, minmax(300px,1fr));
+            gap:25px;
+        }
+
+        .video{
+            background-color:#1e1e1e;
+            padding:15px;
+            border-radius:12px;
+            transition:transform 0.3s ease, border-color 0.3s;
+            border:1px solid transparent;
+        }
+
+        .video:hover{
+            transform:translateY(-5px);
+            border-color:#00ffcc;
+        }
+
+        .video iframe{
+            width:100%;
+            height:180px;
+            border-radius:8px;
+        }
+
+        .video img{
+            width:100%;
+            height:180px;
+            object-fit:cover;
+            border-radius:8px;
+        }
+
+        .title{
+            margin-top:10px;
+            font-weight:bold;
+            text-align:center;
+        }
+
+        /*Footer*/
+        footer{  
+            text-align: center;
+            padding: 30px;
+            background-color: #1f1f1f;
+            margin-top: 50px;
+            color: #666;
+        }           
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="logo"> 
+            <h2>GameHub</h2>
+        </div>
+
+        <hr class="longLine">
+
+        <ul class="menu d-flex justify-content-center gap-4 mt-3">
+            <li><a href="homePage.html">Home</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="eventPage.html">Events</a></li>
+            <li><a href="review.html">Reviews</a></li>
+        </ul>
+    </nav>
+
+    <!--Users Ratings-->
+    <div class="wrapper">
+        <div id="container">
+            <header><h2>Users Ratings</h2></header>
+            <main>4.0</main>
+
+            <div class="stars">
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+            </div>
+
+            <div class="overall-rating">
+
+                <div class="rating-row">
+                    <span class="tag">5</span>
+                    <div class="bar-container">
+                        <div class="bar" style="width: 20%;"></div>
+                    </div>
+                </div>
+
+                <div class="rating-row">
+                    <span class="tag">4</span>
+                    <div class="bar-container">
+                        <div class="bar" style="width: 72%;"></div>
+                    </div>
+                </div>
+                
+                <div class="rating-row">
+                    <span class="tag">3</span>
+                    <div class="bar-container">
+                        <div class="bar" style="width: 6%;"></div>
+                    </div>
+                </div>
+
+                <div class="rating-row">
+                    <span class="tag">2</span>
+                    <div class="bar-container">
+                        <div class="bar" style="width: 4%;"></div>
+                    </div>
+                </div>
+
+                <div class="rating-row">
+                    <span class="tag">1</span>
+                    <div class="bar-container">
+                        <div class="bar" style="width: 2%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <h2>Rate & Review Game</h2>
+        <p>Tell others what you think...</p>
+
+        <!--Interactive Rating-->
+        <form>
+            <div class="rating">
+                <input type="radio" id="star5" name="rating" value="5"><label for="star5"><i class="fa fa-star"></i></label>
+                <input type="radio" id="star4" name="rating" value="4"><label for="star4"><i class="fa fa-star"></i></label>
+                <input type="radio" id="star3" name="rating" value="3"><label for="star3"><i class="fa fa-star"></i></label>
+                <input type="radio" id="star2" name="rating" value="2"><label for="star2"><i class="fa fa-star"></i></label>
+                <input type="radio" id="star1" name="rating" value="1"><label for="star1"><i class="fa fa-star"></i></label>
+            </div>
+
+        <!--Interative Review-->
+            <textarea id="review" placeholder="Write your review..."></textarea>
+            <br>
+            
+            <button type="reset" class="clear">Clear</button>
+            <button type="submit" class="post">Post</button>
+        </form>
+
+        <br>
+
+        <!--Display Comment-->
+        <div class="comment">
+            <div class="comment-body">
+
+                <div class="comment-header">
+                    <img src="pfp.png" class="pfp">
+                    <span class="username">Jamie8956</span>
+                    <span class="time">2 days ago</span>
+                </div>
+
+                <div class="comment-text">
+                    Dude publish this to App Store pls bro</div>
+                </div>
+        </div>
+
+        <!--Games Guide-->
+        <div class="section">
+    <h2>Games Guide</h2>
+    <br>
+
+    <div class="walkthrough-container">
+
+        <div class="video">
+            <a href="https://youtu.be/3xjpx8-2gD0?si=MdvlraXIcZrTz7Ir" target="_blank">
+                <img src="val-img.jpg">
+            </a>
+            <div class="title">Valorant Guide for Beginners</div>
+        </div>
+
+        <div class="video">
+            <a href="https://youtu.be/8o9qyTcnT6Q?si=PzrnZ0NfALU5P6Ir" target="_blank">
+                <img src="hok-img.jpg">
+            </a>
+            <div class="title">Honor of Kings Gameplay</div>
+        </div>
+
+        <div class="video">
+            <a href="https://youtu.be/P6p0xxKuwf4?si=WmFl2gT_e9BqK4FS" target="_blank">
+                <img src="genshin-img.jpg">
+            </a>
+            <div class="title">Genshin Impact Walkthrough</div>
+        </div>
+
+        <div class="video">
+            <a href="https://youtu.be/mxHIFijxTZY?si=fyr6JsYEcYbHTGMv" target="_blank">
+                <img src="minecraft-img.jpg">
+            </a>
+            <div class="title">Minecraft Walkthrough</div>
+        </div>  
+
+    </div>
+</div>
+
+    </div>
+
+    <footer>
+        &copy; 2026 GameHub. All Rights Reserved.
+    </footer>
+
+    <script>
+
+        //Listen for form submission
+        document.querySelector("form").addEventListener("submit", function(e){
+            e.preventDefault();
+        
+            //Get users review
+            const review = document.getElementById("review").value;
+            const rating = document.querySelector('input[name="rating"]:checked');
+
+            if(!rating){
+                alert("Please select a rating.");
+                return;
+            }
+
+            if(review.trim() === ""){
+                alert("Please write a review.");
+                return;
+            }
+
+            const ratingValue = rating.value;
+
+            //Create star rating display
+            let stars = "";
+            for(let i = 0; i < ratingValue; i++){
+                stars += '<span class="fa fa-star checked"></span>';
+            }
+
+            //Create new comment
+            const newComment = document.createElement("div");
+            newComment.className = "comment-body";
+
+            newComment.innerHTML = `
+                <div class="comment-header">
+                    <img src="pfp.png" class="pfp">
+                    <span class="username">Guest User</span>
+                    <span class="time">Just now</span>
+                </div>
+
+                <div class="comment-text">
+                    ${stars}<br>
+                    ${review}
+                </div>
+            `;
+
+            //Add to page
+            document.querySelector(".comment").prepend(newComment);
+
+            //Clear form
+            document.querySelector("form").reset();
+
+        });
+
+    </script>
+
+</body>
+</html>
